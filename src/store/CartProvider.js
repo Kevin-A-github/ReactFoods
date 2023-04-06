@@ -35,6 +35,7 @@ const CartProvider = props => {
     dispatchCartAction({ type: 'REMOVE', id: id });
   };
 
+  // Managing the data from cart-context component
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
@@ -44,6 +45,7 @@ const CartProvider = props => {
 
   return (
     <CartContext.Provider value={cartContext}>
+      {/* This allows us to wrap any components that should get access to this context from CartContext component  */}
       {props.children}
     </CartContext.Provider>
   );

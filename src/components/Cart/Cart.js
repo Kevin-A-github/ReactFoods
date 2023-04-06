@@ -12,6 +12,7 @@ const Cart = props => {
   );
 
   return (
+    // Click on the backdrop to close the modal from App.js
     <Modal onClose={props.onClose}>
       {cartItems}
       <div className={classes.total}>
@@ -19,6 +20,7 @@ const Cart = props => {
         <span>35.62</span>
       </div>
       <div className={classes.actions}>
+        {/* We pass "onClose" prop from App.js to hide the cart when button is clicked */}
         <button className={classes['button--alt']} onClick={props.onClose}>
           Close
         </button>

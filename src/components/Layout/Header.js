@@ -8,6 +8,7 @@ const Header = props => {
     <Fragment>
       <header className={classes.header}>
         <h1>ReactFoods</h1>
+        {/* onClick prop take's the pointer function from App component. */}
         <HeaderCartButton onClick={props.onShowCart} />
       </header>
 

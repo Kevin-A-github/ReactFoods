@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 const Backdrop = props => {
+  // the props.onClose hides the cart when the background is clicked.
   return <div className={classes.backdrop} onClick={props.onClose}></div>;
 };
 
@@ -21,6 +22,7 @@ const Modal = props => {
   return (
     <Fragment>
       {ReactDOM.createPortal(
+        // // the props.onClose hides the cart when the background is clicked.
         <Backdrop onClose={props.onClose} />,
         portalElement
       )}
