@@ -8,16 +8,58 @@ const defaultCartState = {
 };
 
 const cartReducer = (state, action) => {
+  console.log(action);
   if (action.type === 'ADD') {
-    const updatedItem = state.items.concat(action.item);
+    // Total cart amount
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
+
+    //finds the index of the item in the array. If we find the items with the same id it'll return the existing index.
+    const existingCartItemIndex = state.items.findIndex(
+      item => item.id === action.item.id
+    );
+    const existingCartItem = state.items[existingCartItemIndex];
+
+    let updatedItems;
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        // If item exist add both items into one in the cart
+        amount: existingCartItem.amount + action.item.amount,
+      };
+      /// Copy existing items, to update the items inmutably.
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItems = state.items.concat(action.item);
+    }
+
     return {
-      items: updatedItem,
+      items: updatedItems,
       totalAmount: updatedTotalAmount,
     };
   }
-
+  if (action.type === 'REMOVE') {
+    const existingCartItemIndex = state.items.findIndex(
+      item => item.id === action.id
+    );
+    const existingItem = state.items[existingCartItemIndex];
+    const updatedTotalAmount = state.totalAmount - existingItem.price;
+    let updatedItems;
+    if (existingItem.amount === 1) {
+      // all items that are not equal to the action.id are kept. since it returns true
+      updatedItems = state.items.filter(item => item.id !== action.id);
+    } else {
+      const updatedItem = { ...existingItem, amount: existingItem.amount - 1 };
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    }
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+    };
+  }
   return defaultCartState;
 };
 

@@ -11,7 +11,9 @@ const MealItemForm = props => {
   const submitHandler = e => {
     e.preventDefault();
 
+    // Points at the input element from the form. Always current and value.
     const enteredAmount = amountInputRef.current.value;
+    // Convert string to a number since the value is always a string.
     const enteredAmountNumber = +enteredAmount;
 
     if (
@@ -22,12 +24,13 @@ const MealItemForm = props => {
       setAmountIsValid(false);
       return;
     }
-
+    // if we have valid input we want to excecute our context to add an item to the cart from the context component.
     props.onAddToCart(enteredAmountNumber);
   };
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
+      {/* In order to make refs work with costume components we must go to the component we wanna use it from and wrap the function component with React.forwardRef */}
       <Input
         ref={amountInputRef}
         label="Amount"
