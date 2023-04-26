@@ -9,7 +9,10 @@ const MealItem = props => {
 
   const price = `$${props.price.toFixed(2)}`;
 
+  // Reaching to the cart contect from cart-context provider.
+  // addItem which is an function from the Cart-context.
   const addToCartHandler = amount => {
+    // passing the item which we foward to the reducer function in the Cart-context component.
     cartCtx.addItem({
       id: props.id,
       name: props.name,
@@ -26,6 +29,7 @@ const MealItem = props => {
         <div className={classes.price}>{price}</div>
       </div>
       <div>
+        {/* OnAddToCart pointer passing data to MeaItemForm component */}
         <MealItemForm id={props.id} onAddToCart={addToCartHandler} />
       </div>
     </li>

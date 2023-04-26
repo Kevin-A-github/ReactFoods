@@ -7,8 +7,8 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
+// REDUCER FUNCTION
 const cartReducer = (state, action) => {
-  console.log(action);
   if (action.type === 'ADD') {
     // Total cart amount
     const updatedTotalAmount =
@@ -32,6 +32,7 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
+      // Adds new item to array, returning a new array without updating the existing array
       updatedItems = state.items.concat(action.item);
     }
 
@@ -56,6 +57,7 @@ const cartReducer = (state, action) => {
       updatedItems[existingCartItemIndex] = updatedItem;
     }
     return {
+      // returning updates cart data
       items: updatedItems,
       totalAmount: updatedTotalAmount,
     };
@@ -65,7 +67,9 @@ const cartReducer = (state, action) => {
 
 const CartProvider = props => {
   const [cartState, dispatchCartAction] = useReducer(
+    // We pass our reducer function to useRecuer().
     cartReducer,
+    // setting an intial state.
     defaultCartState
   );
 
@@ -79,6 +83,7 @@ const CartProvider = props => {
 
   // Managing the data from cart-context component
   const cartContext = {
+    // we pass the default state from cartState.items and cartState.totalAmount.
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemHandler,

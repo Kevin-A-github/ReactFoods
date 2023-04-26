@@ -6,6 +6,7 @@ import Input from '../../UI/Input';
 const MealItemForm = props => {
   const [amountIsValid, setAmountIsValid] = useState(true);
 
+  // Passing Ref to the Input component
   const amountInputRef = useRef();
 
   const submitHandler = e => {
@@ -16,6 +17,7 @@ const MealItemForm = props => {
     // Convert string to a number since the value is always a string.
     const enteredAmountNumber = +enteredAmount;
 
+    // Validation for the form input
     if (
       enteredAmount.trim().length === 0 ||
       enteredAmountNumber < 1 ||
@@ -31,11 +33,12 @@ const MealItemForm = props => {
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       {/* In order to make refs work with costume components we must go to the component we wanna use it from and wrap the function component with React.forwardRef */}
+
+      {/* Input component to add items to cart */}
       <Input
         ref={amountInputRef}
         label="Amount"
         input={{
-          id: 'amount_' + props.id,
           type: 'number',
           min: '1',
           max: '5',

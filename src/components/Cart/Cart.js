@@ -6,9 +6,12 @@ import CartContext from '../../store/cart-context';
 import CartItem from './CartItem';
 
 const Cart = props => {
+  //Getting access to data from cart-context component
   const carCtx = useContext(CartContext);
 
+  //total amount from cart-context component. toFixed() to be always to dicimals, "$" sting
   const totalAmount = `$${carCtx.totalAmount.toFixed(2)}`;
+  //  show button if cart has items > 0
   const hasItems = carCtx.items.length > 0;
 
   const cartItemRemovehandler = id => {
@@ -22,12 +25,14 @@ const Cart = props => {
   const cartItems = (
     <ul className={classes['cart-items']}>
       {/* DUMMY DATA [{ id: 'c1', name: 'sushi', amount: 2, price: 12.99 }] */}
+      {/* empty items array from cart-context component */}
       {carCtx.items.map(item => (
         <CartItem
           key={item.id}
           name={item.name}
           amount={item.amount}
           price={item.price}
+          // Using bind so the functions recieve the items or the ID.
           onRemove={cartItemRemovehandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
         />
